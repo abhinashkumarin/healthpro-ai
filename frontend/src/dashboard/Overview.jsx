@@ -2,6 +2,7 @@
 // src/dashboard/Overview.jsx
 // Overview Page
 import { useState, useEffect } from "react";
+const API_BASE = import.meta.env.VITE_API_URL || "";
 import { motion } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { useUser } from "@clerk/clerk-react";

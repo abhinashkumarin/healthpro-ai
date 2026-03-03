@@ -1,5 +1,6 @@
 // PDF Report Generator
 import { useState } from "react";
+const API_BASE = import.meta.env.VITE_API_URL || "";
 import { motion } from "framer-motion";
 import { useUser } from "@clerk/clerk-react";
 import axios from "axios";
@@ -17,8 +18,8 @@ export default function Report() {
     if(!bmi||!weight||!height) return alert("Please fill all fields!");
     setLoading(true);
     try {
-      const advice = await axios.post("/api/ai/advice", { bmi, category });
-      const res = await axios.post("/api/report/generate", {
+      const advice = awaitaxios.post(`${API_BASE}/api/ai/advice`, { bmi, category });
+      const res = await axios.post(`${API_BASE}/api/report/generate`, {
         name: user?.fullName || "User",
         bmi: parseFloat(bmi),
         category,
