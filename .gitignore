@@ -1,12 +1,15 @@
 # Yeh command run karo terminal mein:
-@"
+# Backend
 backend/venv/
 backend/__pycache__/
 backend/.env
 backend/*.pyc
+
+# Frontend
 frontend/node_modules/
 frontend/dist/
 frontend/.env
+
+# OS
 .DS_Store
 Thumbs.db
-"@ | Out-File -FilePath ".gitignore" -Encoding utf8
