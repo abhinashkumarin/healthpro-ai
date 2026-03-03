@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #07101e;
+  --card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --green: #34d399;
+  --teal: #0d9488;
+  --text: #f1f5f9;
+  --muted: #64748b;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100vh;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:rgba(255,255,255,0.02); }
+::-webkit-scrollbar-thumb { background:rgba(52,211,153,0.3); border-radius:4px; }
+
+input::placeholder, textarea::placeholder { color:#334155; }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance:none; }
+
+@keyframes spin    { to { transform:rotate(360deg); } }
+@keyframes fadeUp  { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes glow    { 0%,100%{box-shadow:0 0 20px rgba(52,211,153,0.2)} 50%{box-shadow:0 0 50px rgba(52,211,153,0.5)} }
+@keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* Clerk dark theme */
+.cl-rootBox { font-family:'Plus Jakarta Sans',sans-serif !important; width:100% !important; }
+.cl-card {
+  background:#0d1a2b !important;
+  border:1px solid rgba(255,255,255,0.1) !important;
+  border-radius:20px !important;
+  box-shadow:0 25px 60px rgba(0,0,0,0.6) !important;
+}
+.cl-headerTitle  { color:white !important; font-weight:800 !important; }
+.cl-headerSubtitle { color:#64748b !important; }
+.cl-formFieldLabel { color:#94a3b8 !important; font-size:13px !important; }
+.cl-formFieldInput {
+  background:rgba(255,255,255,0.06) !important;
+  border:1px solid rgba(255,255,255,0.1) !important;
+  color:white !important; border-radius:10px !important;
+}
+.cl-formFieldInput:focus { border-color:#34d399 !important; box-shadow:0 0 0 3px rgba(52,211,153,0.15) !important; }
+.cl-formButtonPrimary {
+  background:linear-gradient(135deg,#10b981,#0d9488) !important;
+  border-radius:10px !important; font-weight:700 !important;
+}
+.cl-socialButtonsBlockButton {
+  background:rgba(255,255,255,0.05) !important;
+  border:1px solid rgba(255,255,255,0.1) !important;
+  color:white !important; border-radius:10px !important;
+}
+.cl-footerActionLink { color:#34d399 !important; }
+.cl-dividerLine { background:rgba(255,255,255,0.08) !important; }
+.cl-dividerText { color:#475569 !important; }

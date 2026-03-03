@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="description" content="Smart BMI & AI Health Advisor Pro" />
+    <title>HealthPro AI — Smart BMI & AI Health Advisor</title>
+    <style>
+      html, body, #root {
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: #07101e;
+      }
+      #loader {
+        position: fixed; inset: 0; background: #07101e;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        z-index: 9999; transition: opacity .5s;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+      #loader.hide { opacity: 0; pointer-events: none; }
+      .ld { width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#34d399,#0d9488);display:grid;place-items:center;font-weight:900;font-size:22px;color:white;margin-bottom:18px;animation:lp 1.5s ease-in-out infinite; }
+      .ls { width:34px;height:34px;border:3px solid rgba(52,211,153,0.15);border-top-color:#34d399;border-radius:50%;animation:ls .8s linear infinite; }
+      .lt { color:white;font-size:18px;font-weight:800;margin-bottom:5px; }
+      .lt span { color:#34d399; }
+      .lb { color:#475569;font-size:12px;margin-bottom:20px; }
+      @keyframes ls { to{transform:rotate(360deg)} }
+      @keyframes lp { 0%,100%{box-shadow:0 0 20px rgba(52,211,153,0.2)} 50%{box-shadow:0 0 50px rgba(52,211,153,0.5)} }
+    </style>
+  </head>
+  <body>
+    <div id="loader">
+      <div class="ld">H</div>
+      <div class="lt">Health<span>Pro</span> AI</div>
+      <div class="lb">Smart BMI & AI Health Advisor</div>
+      <div class="ls"></div>
+    </div>
+    <div id="root"></div>
+    <script>
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const l = document.getElementById('loader');
+          if (l) { l.classList.add('hide'); setTimeout(() => l.remove(), 500); }
+        }, 700);
+      });
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+# Yeh command run karo terminal mein:
+@"
+backend/venv/
+backend/__pycache__/
+backend/.env
+backend/*.pyc
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+.DS_Store
+Thumbs.db
+"@ | Out-File -FilePath ".gitignore" -Encoding utf8
