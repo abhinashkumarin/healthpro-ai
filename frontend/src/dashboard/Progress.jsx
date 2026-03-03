@@ -1,4 +1,5 @@
 // Progress Graph
+// Progress Graph
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
@@ -35,8 +36,10 @@ export default function Progress() {
     if(!user?.id) return;
     setLoading(true);
     axios.get(`/api/bmi/history/${user.id}`).then(r=>{
-      if(r.data.length>0) {
-        const formatted = r.data.map(d=>({
+      // ✅ FIX: Array check add kiya
+      const records = Array.isArray(r.data) ? r.data : [];
+      if(records.length > 0) {
+        const formatted = records.map(d=>({
           name: new Date(d.date).toLocaleDateString("en",{month:"short",day:"numeric"}),
           BMI: parseFloat(d.bmi)
         }));
@@ -45,8 +48,10 @@ export default function Progress() {
     }).catch(()=>{}).finally(()=>setLoading(false));
   },[user]);
 
-  const latest = data[data.length-1]?.BMI;
-  const first  = data[0]?.BMI;
+  // ✅ FIX: Array check for slice/map
+  const safeData = Array.isArray(data) ? data : [];
+  const latest = safeData.length > 0 ? safeData[safeData.length-1]?.BMI : null;
+  const first  = safeData.length > 0 ? safeData[0]?.BMI : null;
   const change = latest && first ? (latest - first).toFixed(1) : null;
 
   return (
@@ -69,12 +74,11 @@ export default function Progress() {
         <div className="mb-8">
           <h3 className="text-slate-300 font-bold text-sm mb-4">BMI Trend Line</h3>
           <ResponsiveContainer width="100%" height={260}>
-            <LineChart data={data} margin={{top:5,right:10,bottom:5,left:-10}}>
+            <LineChart data={safeData} margin={{top:5,right:10,bottom:5,left:-10}}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)"/>
               <XAxis dataKey="name" stroke="#475569" fontSize={11} tickLine={false}/>
               <YAxis stroke="#475569" fontSize={11} tickLine={false} domain={[14,40]}/>
               <Tooltip content={<CustomTooltip/>}/>
-              {/* BMI category zones */}
               <ReferenceLine y={18.5} stroke="#60a5fa" strokeDasharray="4 4" label={{value:"Underweight",position:"insideTopRight",fill:"#60a5fa",fontSize:10}}/>
               <ReferenceLine y={25}   stroke="#34d399" strokeDasharray="4 4" label={{value:"Normal",position:"insideTopRight",fill:"#34d399",fontSize:10}}/>
               <ReferenceLine y={30}   stroke="#fbbf24" strokeDasharray="4 4" label={{value:"Overweight",position:"insideTopRight",fill:"#fbbf24",fontSize:10}}/>
@@ -88,7 +92,8 @@ export default function Progress() {
         <div>
           <h3 className="text-slate-300 font-bold text-sm mb-4">BMI Readings (Bar)</h3>
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={data.slice(-8)} margin={{top:5,right:10,bottom:5,left:-10}}>
+            {/* ✅ FIX: safeData.slice() use kiya */}
+            <BarChart data={safeData.slice(-8)} margin={{top:5,right:10,bottom:5,left:-10}}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)"/>
               <XAxis dataKey="name" stroke="#475569" fontSize={11} tickLine={false}/>
               <YAxis stroke="#475569" fontSize={11} tickLine={false} domain={[14,40]}/>
@@ -115,7 +120,7 @@ export default function Progress() {
         ))}
       </div>
 
-      {data===DEMO_DATA && (
+      {safeData === DEMO_DATA && (
         <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4 text-yellow-300 text-sm text-center">
           ⚠️ Showing demo data. Calculate your BMI to see real progress!
         </div>

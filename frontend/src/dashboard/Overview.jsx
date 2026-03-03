@@ -1,5 +1,6 @@
 // Overview Page
 // src/dashboard/Overview.jsx
+// Overview Page
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
@@ -26,9 +27,15 @@ export default function Overview() {
   useEffect(()=>{
     if(!user?.id) return;
     axios.get(`/api/bmi/history/${user.id}`).then(r=>{
-      setBmiHistory(r.data);
-      setLatest(r.data[r.data.length-1]);
-    }).catch(()=>{});
+      // ✅ FIX: Array check add kiya
+      const records = Array.isArray(r.data) ? r.data : [];
+      setBmiHistory(records);
+      if(records.length > 0) {
+        setLatest(records[records.length-1]);
+      }
+    }).catch(()=>{
+      setBmiHistory([]);
+    });
   },[user]);
 
   const stats = [
@@ -38,7 +45,9 @@ export default function Overview() {
     { icon:"🏋️", label:"Workouts", value:"5", sub:"This week", color:"#a78bfa" },
   ];
 
-  const chartData = bmiHistory.slice(-10).map((r,i)=>({
+  // ✅ FIX: Array check for slice/map
+  const safeHistory = Array.isArray(bmiHistory) ? bmiHistory : [];
+  const chartData = safeHistory.slice(-10).map((r)=>({
     name: new Date(r.date).toLocaleDateString("en",{month:"short",day:"numeric"}),
     BMI: parseFloat(r.bmi)
   }));
@@ -61,8 +70,8 @@ export default function Overview() {
               <XAxis dataKey="name" stroke="#475569" fontSize={11}/>
               <YAxis stroke="#475569" fontSize={11} domain={[14,40]}/>
               <Tooltip contentStyle={{background:"#0d1a2b",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"12px",color:"#fff"}}/>
-              <Line type="monotone" dataKey="BMI" stroke="#34d399" strokeWidth={2.5} dot={{fill:"#34d399",strokeWidth:0,r:4}} activeDot={{r:6,fill:"#34d399"}}/>
-              {/* Reference lines */}
+              <Line type="monotone" dataKey="BMI" stroke="#34d399" strokeWidth={2.5}
+                dot={{fill:"#34d399",strokeWidth:0,r:4}} activeDot={{r:6,fill:"#34d399"}}/>
             </LineChart>
           </ResponsiveContainer>
         ) : (
