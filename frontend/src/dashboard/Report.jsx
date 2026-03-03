@@ -1,9 +1,10 @@
 // PDF Report Generator
 import { useState } from "react";
-const API_BASE = import.meta.env.VITE_API_URL || "";
 import { motion } from "framer-motion";
 import { useUser } from "@clerk/clerk-react";
 import axios from "axios";
+
+const API_BASE = import.meta.env.VITE_API_URL || "";
 
 export default function Report() {
   const { user } = useUser();
@@ -18,7 +19,7 @@ export default function Report() {
     if(!bmi||!weight||!height) return alert("Please fill all fields!");
     setLoading(true);
     try {
-      const advice = awaitaxios.post(`${API_BASE}/api/ai/advice`, { bmi, category });
+      const advice = await axios.post(`${API_BASE}/api/ai/advice`, { bmi, category });
       const res = await axios.post(`${API_BASE}/api/report/generate`, {
         name: user?.fullName || "User",
         bmi: parseFloat(bmi),
@@ -45,7 +46,6 @@ export default function Report() {
       <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-7">
         <h2 className="text-2xl font-black mb-2">📄 Download Health Report</h2>
         <p className="text-slate-400 text-sm mb-6">Generate a professional PDF health report with AI recommendations.</p>
-
         <div className="space-y-4">
           <div>
             <label className="text-slate-400 text-sm font-semibold mb-2 block">Your BMI Score</label>
@@ -75,7 +75,6 @@ export default function Report() {
             </div>
           </div>
         </div>
-
         <button onClick={download} disabled={loading}
           className="w-full mt-6 bg-gradient-to-r from-violet-500 to-purple-600 py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-violet-500/25 hover:scale-[1.02] transition-all disabled:opacity-50 flex items-center justify-center gap-2">
           {loading?(
@@ -99,7 +98,6 @@ export default function Report() {
         </motion.div>
       )}
 
-      {/* What's included */}
       <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6">
         <h3 className="font-bold text-lg mb-4">📋 Report Includes</h3>
         <div className="grid grid-cols-2 gap-3">
