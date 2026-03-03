@@ -1,6 +1,7 @@
 // AI ChatBot Component
 // src/chatbot/ChatBot.jsx
 import { useState, useRef, useEffect } from "react";
+const API_BASE = import.meta.env.VITE_API_URL || "";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 
@@ -98,7 +99,7 @@ export default function ChatBot() {
     setLoading(true);
 
     try {
-      const res = await axios.post("/api/chat", {
+      const res = await axios.post(`${API_BASE}/api/chat`, {
         message: userMsg.content,
         history: msgs.slice(-6),
         userId: "user"
@@ -108,7 +109,7 @@ export default function ChatBot() {
     } catch {
       setMsgs(m => [...m, {
         role: "assistant",
-        content: "⚠️ **Connection Error**\n\n• Backend server check karo\n• http://localhost:8000 running hai?\n• Dobara try karo!"
+        content: "⚠️ **Connection Error**\n\n• Backend server check karo\n• https://healthpro-backend-o6bj.onrender.com running hai?\n• Dobara try karo!"
       }]);
     }
     setLoading(false);

@@ -8,7 +8,7 @@ python -m venv venv
 venv\Scripts\activate (Windows) or source venv/bin/activate (Mac)
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
-API Docs → http://localhost:8000/docs
+API Docs → https://healthpro-backend-o6bj.onrender.com/docs
 
 ## .env Setup
 MONGODB_URL=mongodb://localhost:27017
@@ -68,4 +68,4 @@ uvicorn app.main:app --reload --port 8000
 
 # You should see:
 # INFO: Application startup complete.
-# Open: http://localhost:8000/docs
+# Open: https://healthpro-backend-o6bj.onrender.com/docs

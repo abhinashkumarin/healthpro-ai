@@ -1,6 +1,7 @@
 // BMI Calculator Component
 // src/dashboard/BMICalculator.jsx
 import { useState } from "react";
+const API_BASE = import.meta.env.VITE_API_URL || "";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@clerk/clerk-react";
 import axios from "axios";
@@ -76,7 +77,7 @@ export default function BMICalculator() {
     // Get AI advice
     setLoading(true);
     try {
-      const advRes = await axios.post("/api/ai/advice", {
+      const advRes = await axios.post(`${API_BASE}/api/ai/advice`, {
         bmi: parseFloat(bmiVal.toFixed(2)),
         category: cat.label,
         age: 25,
@@ -89,7 +90,7 @@ export default function BMICalculator() {
 
     // Auto-save to MongoDB
     try {
-      const saveRes = await axios.post("/api/bmi/save", {
+      const saveRes = await axios.post(`${API_BASE}/api/bmi/save`, {
         userId:     user?.id || "anonymous",
         weight:     wKg,
         height:     hM,

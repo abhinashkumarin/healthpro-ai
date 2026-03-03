@@ -9,7 +9,7 @@ npm run dev → http://localhost:5173
 
 ## .env Setup
 VITE_CLERK_PUBLISHABLE_KEY=pk_test_xxxxx
-VITE_API_URL=http://localhost:8000
+VITE_API_URL=https://healthpro-backend-o6bj.onrender.com
 
 ## Pages
 / → Landing Page

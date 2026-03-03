@@ -1,5 +1,6 @@
 // Workout Planner
 import { useState } from "react";
+const API_BASE = import.meta.env.VITE_API_URL || "";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 
@@ -67,7 +68,7 @@ export default function WorkoutPlanner() {
   const getAIPlan = async () => {
     setAiLoading(true);
     try {
-      const res = await axios.post("/api/ai/advice", { bmi: 26, category });
+      const res = await axios.post(`${API_BASE}/api/ai/advice`, { bmi: 26, category });
       setAiPlan(res.data.advice);
     } catch(e) { setAiPlan("Could not load AI plan. Please ensure backend is running."); }
     setAiLoading(false);
