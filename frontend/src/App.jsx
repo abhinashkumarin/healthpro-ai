@@ -1,6 +1,9 @@
 // Main App
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth, SignIn, SignUp } from "@clerk/clerk-react";
+import { useAuth, SignIn, SignUp, useUser } from "@clerk/clerk-react";
+import { useEffect } from "react";
+import axios from "axios";
+
 import LandingPage     from "./pages/LandingPage";
 import DashboardLayout from "./dashboard/DashboardLayout";
 import Overview        from "./dashboard/Overview";
@@ -11,6 +14,8 @@ import WorkoutPlanner  from "./dashboard/WorkoutPlanner";
 import Progress        from "./dashboard/Progress";
 import Report          from "./dashboard/Report";
 import Settings        from "./dashboard/Settings";
+
+const API_BASE = import.meta.env.VITE_API_URL || "";
 
 // ── Auth page wrapper with dark background
 const AuthPage = ({ children }) => (
@@ -54,6 +59,18 @@ const Loader = () => (
 // ── Protected route
 function PrivateRoute({ children }) {
   const { isSignedIn, isLoaded } = useAuth();
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (isSignedIn && user) {
+      axios.post(`${API_BASE}/api/users/sync`, {
+        clerkId: user.id,
+        name: user.fullName || "User",
+        email: user.primaryEmailAddress?.emailAddress || ""
+      }).catch(err => console.log("User sync error:", err));
+    }
+  }, [isSignedIn, user]);
+
   if (!isLoaded) return <Loader />;
   return isSignedIn ? children : <Navigate to="/login" replace />;
 }
