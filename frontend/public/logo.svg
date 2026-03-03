@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d9488;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34d399;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d1fae5;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" ry="120" fill="url(#bgGrad)"/>
+  <path d="M256 360 C256 360 145 285 145 208 C145 168 173 145 207 145 C229 145 249 157 256 173 C263 157 283 145 305 145 C339 145 367 168 367 208 C367 285 256 360 256 360Z" fill="url(#heartGrad)" opacity="0.95"/>
+  <polyline points="172,212 200,212 214,182 228,242 241,197 256,212 284,212 298,212 312,182 326,212 340,212"
+    fill="none" stroke="#0d9488" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="378" cy="134" r="42" fill="white" opacity="0.2"/>
+  <circle cx="378" cy="134" r="35" fill="#34d399"/>
+  <text x="378" y="145" text-anchor="middle" font-family="Arial Black" font-size="26" font-weight="900" fill="#07101e">AI</text>
+  <text x="256" y="452" text-anchor="middle" font-family="Arial Black" font-size="48" font-weight="900" fill="white" opacity="0.93">HealthPro</text>
+</svg>
